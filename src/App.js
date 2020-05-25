@@ -6,6 +6,7 @@ import { Timer as Timer00 } from './00/Timer';
 import { Timer as Timer01 } from './01/Timer';
 import { Timer as Timer02 } from './02/Timer';
 import { Timer as Timer03 } from './03/Timer';
+import { Timer as Timer04 } from './04/Timer';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route path="/03">
           <Timer03 />
+        </Route>
+        <Route path="/04">
+          <Timer04 />
         </Route>
         <Route path="/complete">
           <TimerComplete />

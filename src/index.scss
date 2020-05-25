@@ -57,7 +57,8 @@ body,
     }
   }
 
-  &[data-state~='running.overtime'] {
+  &[data-state~='running.overtime'],
+  &[data-state~='expired'] {
     circle {
       animation: pulse 1s steps(1) infinite;
     }
@@ -66,7 +67,8 @@ body,
     }
   }
 
-  &[data-state~='running.overtime'] {
+  &[data-state~='running.overtime'],
+  &[data-state~='expired'] {
     --progress: 1;
   }
 

@@ -13,7 +13,7 @@ export const Timer = () => {
   return (
     <div
       className="timer"
-      data-state={state}
+      data-state={state.value}
       style={{
         // @ts-ignore
         '--duration': duration,
