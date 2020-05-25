@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+:root {
+  --color-primary: #5192e6;
+  --color-primary-light: hsla(214, 75%, 72%, 1);
+  --color-secondary: #8b9096;
+}
+
+#root {
+  background-color: #202124;
+  color: white;
+}
+
+.timer {
+  --progress: calc((var(--elapsed)) / var(--duration));
+  display: grid;
+  grid-template-rows: 10vh 1fr 25vh;
+  grid-template-areas: 'header' 'main' 'actions';
+  height: 100%;
+
+  > header {
+    grid-area: header;
+  }
+
+  > .circles,
+  > .display {
+    grid-area: main;
+    align-self: center;
+    justify-self: center;
+  }
+
+  > .actions {
+    grid-area: actions;
+  }
+
+  &[data-state~='idle'] {
+    .progress {
+      transition-duration: 0.3s;
+    }
+  }
+
+  &[data-state~='paused'] {
+    .elapsed {
+      animation: pulse 1s steps(1) infinite;
+    }
+  }
+
+  &[data-state~='running.overtime'] {
+    circle {
+      animation: pulse 1s steps(1) infinite;
+    }
+    .elapsed {
+      color: white;
+    }
+  }
+
+  &[data-state~='running.overtime'] {
+    --progress: 1;
+  }
+
+  &[data-state~='running.normal'],
+  &[data-state~='paused'] {
+    --progress: calc((var(--elapsed) + var(--interval)) / var(--duration));
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  > button {
+    appearance: none;
+    background-color: var(--color-primary);
+    color: white;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 4rem;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--color-primary-light);
+    }
+  }
+}
+
+button {
+  cursor: pointer; // I know, I know
+
+  &:focus {
+    outline: none; // I KNOW DO NOT @ ME
+  }
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.elapsed {
+  color: var(--color-primary);
+  font-size: 5rem;
+  padding: 1rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.label {
+  color: var(--color-secondary);
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+
+  > button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1rem;
+  }
+}
+
+.circles {
+  transform: rotate(-0.25turn);
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+circle {
+  stroke: white;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-width: 1px;
+}
+
+.progress {
+  --interval-duration: calc(var(--interval) * 1s);
+  transition: stroke-dashoffset var(--interval-duration) linear;
+  stroke: var(--color-primary);
+  stroke-dashoffset: calc(1 - var(--progress) * -1);
+  stroke-dasharray: 1 1;
+  stroke-width: 1.1px;
+}
+
+@keyframes pulse {
+  from,
+  to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    color: white;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
