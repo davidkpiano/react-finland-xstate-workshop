@@ -9,6 +9,7 @@ import { Timer as Timer03 } from './03/Timer';
 import { Timer as Timer04 } from './04/Timer';
 import { Timer as Timer05 } from './05/Timer';
 import { Timer as Timer06 } from './06/Timer';
+import { Timer as Timer07 } from './07/Timer';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route path="/06">
           <Timer06 />
+        </Route>
+        <Route path="/07">
+          <Timer07 />
         </Route>
         <Route path="/complete">
           <TimerComplete />

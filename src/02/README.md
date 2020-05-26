@@ -1,1 +1,1 @@
-# Lesson 02
+# Exercise 02
