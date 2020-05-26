@@ -21,10 +21,10 @@ export const timerMachine = createMachine({
     },
     running: {
       on: {
-        // Add a transient transition that checks if the timer is expired.
-        // If so, go to the `expired` state.
-        // ...
-
+        '': {
+          target: 'expired',
+          cond: timerExpired,
+        },
         TICK: {
           actions: assign({
             elapsed: (ctx) => ctx.elapsed + ctx.interval,
