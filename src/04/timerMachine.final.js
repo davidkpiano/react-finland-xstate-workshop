@@ -3,14 +3,14 @@ import { createMachine, assign } from 'xstate';
 export const timerMachine = createMachine({
   initial: 'idle',
   context: {
-    duration: 5,
+    duration: 60,
     elapsed: 0,
     interval: 0.1,
   },
   states: {
     idle: {
       entry: assign({
-        duration: 5,
+        duration: 60,
         elapsed: 0,
       }),
       on: {
@@ -19,14 +19,17 @@ export const timerMachine = createMachine({
     },
     running: {
       on: {
-        // Change this TICK transition into a guarded transition
-        // to go to `expired` when `context.elapsed + context.interval`
-        // is greater than the total `context.duration`.
-        TICK: {
-          actions: assign({
-            elapsed: (ctx) => ctx.elapsed + ctx.interval,
-          }),
-        },
+        TICK: [
+          {
+            actions: assign({
+              elapsed: (ctx) => ctx.elapsed + ctx.interval,
+            }),
+            cond: (ctx) => {
+              return ctx.elapsed + ctx.interval <= ctx.duration;
+            },
+          },
+          { target: 'expired' },
+        ],
         TOGGLE: 'paused',
         ADD_MINUTE: {
           actions: assign({
@@ -41,9 +44,10 @@ export const timerMachine = createMachine({
         RESET: 'idle',
       },
     },
-
-    // Add an `expired` state here.
-    // It should go to the `idle` state on the `RESET` event.
-    // ...
+    expired: {
+      on: {
+        RESET: 'idle',
+      },
+    },
   },
 });
