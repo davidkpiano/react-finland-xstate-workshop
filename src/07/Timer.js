@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useMemo } from 'react';
 import { faPlay, faPause, faStop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMachine } from '@xstate/react';
