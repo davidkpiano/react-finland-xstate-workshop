@@ -2,6 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { Timer as TimerComplete } from './complete/Timer';
+
+// To see the final versions of each exercise, append .final to the path; e.g.:
+// import { Timer as Timer00 } from './00/Timer.final';
+
 import { Timer as Timer00 } from './00/Timer';
 import { Timer as Timer01 } from './01/Timer';
 import { Timer as Timer02 } from './02/Timer';
