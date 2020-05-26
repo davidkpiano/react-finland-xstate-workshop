@@ -12,12 +12,14 @@ export const Timer = () => {
   const { duration, elapsed, interval } = state.context;
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      send('TICK');
-    }, interval * 1000);
+    if (state.value === 'running') {
+      const intervalId = setInterval(() => {
+        send('TICK');
+      }, interval * 1000);
 
-    return () => clearInterval(intervalId);
-  }, []);
+      return () => clearInterval(intervalId);
+    }
+  }, [state.value]);
 
   return (
     <div
