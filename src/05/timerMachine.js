@@ -25,14 +25,11 @@ export const timerMachine = createMachine({
           target: 'expired',
           cond: timerExpired,
         },
-        TICK: [
-          {
-            actions: assign({
-              elapsed: (ctx) => ctx.elapsed + ctx.interval,
-            }),
-          },
-          { target: 'expired' },
-        ],
+        TICK: {
+          actions: assign({
+            elapsed: (ctx) => ctx.elapsed + ctx.interval,
+          }),
+        },
         TOGGLE: 'paused',
         ADD_MINUTE: {
           actions: assign({
@@ -44,13 +41,13 @@ export const timerMachine = createMachine({
     paused: {
       on: {
         TOGGLE: 'running',
+        RESET: 'idle',
       },
     },
-    expired: {},
-  },
-  on: {
-    RESET: {
-      target: '.idle',
+    expired: {
+      on: {
+        RESET: 'idle',
+      },
     },
   },
 });

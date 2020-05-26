@@ -1,4 +1,4 @@
-# Exercise 04
+# Exercise 04 - Guarded Transitions
 
 In this exercise, we'll model what happens when the timer runs out using [guarded transitions](https://xstate.js.org/docs/guides/guards.html).
 
