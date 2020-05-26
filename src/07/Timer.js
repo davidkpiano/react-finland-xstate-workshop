@@ -23,13 +23,7 @@ export const Timer = () => {
       }}
     >
       <header>
-        <a
-          href="https://xstate.js.org/viz/?gist=78fef4bd3ae520709ceaee62c0dd59cd"
-          title="See the visualization"
-          target="_xstate"
-        >
-          XState Minute Timer
-        </a>
+        <h1>Exercise 07</h1>
       </header>
       <ProgressCircle />
       <div className="display">
