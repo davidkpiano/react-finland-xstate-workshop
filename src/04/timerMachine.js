@@ -41,13 +41,13 @@ export const timerMachine = createMachine({
     paused: {
       on: {
         TOGGLE: 'running',
+        RESET: 'idle',
       },
     },
-    expired: {},
-  },
-  on: {
-    RESET: {
-      target: '.idle',
+    expired: {
+      on: {
+        RESET: 'idle',
+      },
     },
   },
 });

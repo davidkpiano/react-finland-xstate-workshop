@@ -16,6 +16,7 @@ export const timerMachine = createMachine({
     paused: {
       on: {
         TOGGLE: 'running',
+        RESET: 'idle',
       },
     },
   },

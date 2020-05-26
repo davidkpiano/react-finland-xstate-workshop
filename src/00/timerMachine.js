@@ -14,6 +14,7 @@ export const timerMachineConfig = {
     paused: {
       on: {
         TOGGLE: 'running',
+        RESET: 'idle',
       },
     },
   },
