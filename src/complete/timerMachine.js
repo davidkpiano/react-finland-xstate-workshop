@@ -13,7 +13,7 @@ const timerExpired = (ctx) => ctx.elapsed >= ctx.duration;
 export const createTimerMachine = (duration) =>
   createMachine({
     id: 'timer',
-    initial: 'idle',
+    initial: 'running',
     context: {
       duration,
       elapsed: 0,

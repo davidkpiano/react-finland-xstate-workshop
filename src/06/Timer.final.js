@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMachine } from '@xstate/react';
 import { ProgressCircle } from '../ProgressCircle';
 
-import { timerMachine } from './timerMachine';
+import { timerMachine } from './timerMachine.final';
 
 export const Timer = () => {
   const [state, send] = useMachine(timerMachine);

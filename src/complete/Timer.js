@@ -7,9 +7,9 @@ import { useMachine } from '@xstate/react';
 import { createTimerMachine } from './timerMachine';
 import { ProgressCircle } from '../ProgressCircle';
 
-export const Timer = () => {
+export const Timer = ({ onDelete, duration: durationProp }) => {
   // Change from 60 to whatever duration you want!
-  const timerMachine = useMemo(() => createTimerMachine(60), []);
+  const timerMachine = useMemo(() => createTimerMachine(durationProp), []);
   const [state, send] = useMachine(timerMachine);
 
   const { duration, elapsed, interval } = state.context;
@@ -51,6 +51,14 @@ export const Timer = () => {
         </div>
       </div>
       <div className="actions">
+        <button
+          className="transparent"
+          onClick={() => {
+            onDelete();
+          }}
+        >
+          Delete
+        </button>
         {state.matches({ running: 'normal' }) && (
           <button onClick={() => send('TOGGLE')} title="Pause timer">
             <FontAwesomeIcon icon={faPause} />
@@ -66,6 +74,9 @@ export const Timer = () => {
             <FontAwesomeIcon icon={faPlay} />
           </button>
         )}
+        <button className="transparent" disabled>
+          Add Timer
+        </button>
       </div>
     </div>
   );

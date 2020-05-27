@@ -23,11 +23,78 @@ body,
   color: white;
 }
 
+.app {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+
+  > * {
+    grid-area: 1 / 1;
+    transition: transform 0.6s ease-in-out, opacity 0.3s ease-out;
+  }
+
+  &[data-state='timer'] {
+    > .new-timer {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+
+    > .timer {
+      animation: slide-up 0.6s ease-in-out both;
+
+      @keyframes slide-up {
+        from {
+          opacity: 0;
+          transform: translateY(100%);
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.new-timer {
+  > input {
+    grid-area: main;
+    align-self: self-start;
+    justify-self: center;
+    appearance: none;
+    background: transparent;
+    font-size: 5rem;
+    width: 10ch;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    direction: rtl;
+    &:focus {
+      outline: none;
+    }
+  }
+  > .actions {
+    grid-area: actions;
+  }
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.new-timer,
 .timer {
-  --progress: calc((var(--elapsed)) / var(--duration));
   display: grid;
   grid-template-rows: 10vh 1fr 25vh;
   grid-template-areas: 'header' 'main' 'actions';
+}
+
+.timer {
+  --progress: calc((var(--elapsed)) / var(--duration));
   height: 100%;
 
   > header {
@@ -84,7 +151,7 @@ body,
   justify-content: space-around;
   align-items: center;
 
-  > button {
+  > button:not(.transparent) {
     appearance: none;
     background-color: var(--color-primary);
     color: white;
@@ -100,13 +167,27 @@ body,
       background-color: var(--color-primary-light);
     }
   }
+
+  > button.transparent {
+    width: auto;
+    background: transparent;
+    padding: 1rem;
+  }
 }
 
 button {
+  appearance: none;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
   cursor: pointer; // I know, I know
 
   &:focus {
     outline: none; // I KNOW DO NOT @ ME
+  }
+
+  &:disabled {
+    opacity: 0.2;
   }
 }
 
