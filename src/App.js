@@ -1,7 +1,11 @@
-import React from 'react';
+// @ts-nocheck
+import React, { useState, useReducer } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { Timer as TimerComplete } from './complete/Timer';
+
+import { createMachine } from 'xstate';
+import { useMachine } from '@xstate/react';
 
 // To see the final versions of each exercise, append .final to the path; e.g.:
 // import { Timer as Timer00 } from './00/Timer.final';
@@ -14,6 +18,33 @@ import { Timer as Timer04 } from './04/Timer';
 import { Timer as Timer05 } from './05/Timer';
 import { Timer as Timer06 } from './06/Timer';
 import { Timer as Timer07 } from './07/Timer';
+
+const fetchMachine = createMachine({
+  // Initial state
+  initial: 'idle',
+
+  // Finite states
+  states: {
+    idle: {
+      // Transitions
+      on: {
+        FETCH: 'loading',
+      },
+    },
+    loading: {
+      on: {
+        RESOLVE: 'success',
+        REJECT: 'failure',
+      },
+    },
+    success: {},
+    failure: {
+      on: {
+        FETCH: 'loading',
+      },
+    },
+  },
+});
 
 function App() {
   return (

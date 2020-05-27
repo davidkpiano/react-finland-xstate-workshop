@@ -8,13 +8,29 @@ import { ProgressCircle } from '../ProgressCircle';
 
 import { timerMachine } from './timerMachine';
 
-export const Timer = () => {
-  const [state, send] = useMachine(timerMachine);
+export const Timer = ({ name = 'David' }) => {
+  const [state, send] = useMachine(timerMachine, {
+    actions: {
+      greetUser: () => {
+        console.log(`Hey ${name}!`);
+      },
+    },
+  });
+  // State has changed if...
 
   const { duration, elapsed, interval } = state.context;
 
-  // Add a useEffect(...) here to send a TICK event on every `interval`
-  // ...
+  useEffect(() => {
+    if (state.value === 'running') {
+      const intervalId = setInterval(() => {
+        send('TICK');
+      }, interval * 1000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [interval, send, state.value]);
 
   return (
     <div
@@ -28,7 +44,13 @@ export const Timer = () => {
       }}
     >
       <header>
-        <h1>Exercise 03</h1>
+        <h1
+          onClick={() => {
+            send('TICK');
+          }}
+        >
+          Exercise 03
+        </h1>
       </header>
       <ProgressCircle />
       <div className="display">

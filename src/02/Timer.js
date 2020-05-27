@@ -10,11 +10,9 @@ export const Timer = () => {
   const [state, send] = useMachine(timerMachine);
 
   // Use state.context instead
-  const { duration, elapsed, interval } = {
-    duration: 60,
-    elapsed: 0,
-    interval: 0.1,
-  };
+  const { duration, elapsed, interval } = state.context;
+
+  console.log(state);
 
   return (
     <div
@@ -40,14 +38,15 @@ export const Timer = () => {
           {state.value !== 'running' && (
             <button onClick={() => send('RESET')}>Reset</button>
           )}
-
-          <button
-            onClick={() => {
-              // ...
-            }}
-          >
-            + 1:00
-          </button>
+          {state.value === 'running' && (
+            <button
+              onClick={() => {
+                send('ADD_MINUTE');
+              }}
+            >
+              + 1:00
+            </button>
+          )}
         </div>
       </div>
       <div className="actions">
