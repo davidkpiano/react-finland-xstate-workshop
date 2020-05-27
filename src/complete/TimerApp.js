@@ -30,7 +30,6 @@ const timerAppMachine = createMachine({
 
 export const TimerApp = () => {
   const [state, send] = useMachine(timerAppMachine);
-  console.log(state);
 
   return (
     <main className="app" data-state={state.toStrings().join(' ')}>

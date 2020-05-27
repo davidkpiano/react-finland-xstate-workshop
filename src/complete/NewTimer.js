@@ -54,6 +54,7 @@ export const NewTimer = ({ onSubmit }) => {
         placeholder="00s"
         autoFocus
         onChange={send}
+        title="Duration"
       />
       <div className="actions">
         <button
