@@ -38,11 +38,13 @@ export const createTimerMachine = (duration) =>
         initial: 'normal',
         states: {
           normal: {
-            on: {
-              '': {
+            description: 'This is the normal operation of the timer',
+            always: {
                 target: 'overtime',
                 cond: timerExpired,
               },
+            on: {
+
               RESET: undefined,
             },
           },
